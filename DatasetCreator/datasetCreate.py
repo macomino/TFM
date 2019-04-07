@@ -8,13 +8,15 @@ from generate_tfrecord import createTFRecord
 class DatasetCreate:
 
     outputPath = 'out'
-    inputImagePath = ''
+    outputPathTraining = os.path.join( outputPath, 'train')
+    outputPathTest = os.path.join( outputPath, 'test')
+    inputImagePath = os.path.join('..','..', 'imagenesPatron')
     images_list = []
 
-    def saveCsv(self):
+    def saveCsv(self, outputFile):
         column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
         df = pd.DataFrame(self.images_list, columns=column_name)
-        df.to_csv(os.path.join(self.outputPath, 'annotations.csv'), index=None)
+        df.to_csv(outputFile, index=None)
 
     def addImageToList(self, filename, width, height, clase, xmin, ymin, xmax, ymax):
         value = (filename,
@@ -28,7 +30,7 @@ class DatasetCreate:
                 )
         self.images_list.append(value)
 
-    def initialize(self, imageFile, outputFile):
+    def initialize(self, imageFile, outputPath, outputFile):
         width = random.randint(300,1000)
         height = random.randint(300,1000)
 
@@ -53,27 +55,43 @@ class DatasetCreate:
         #cv2.waitKey(0)
         self.addImageToList(outputFile, width, height, os.path.splitext(os.path.basename(imageFile))[0], x_offset, y_offset, x_offset+imagen.shape[1], y_offset+imagen.shape[0])
 
-        cv2.imwrite( os.path.join(self.outputPath, outputFile) ,blank_image)
+        cv2.imwrite(os.path.join(outputPath, outputFile), blank_image)
         return
 
+    def checkFolder(self):
+        if not os.path.exists(self.outputPath):
+            os.mkdir(self.outputPath)
+        if not os.path.exists(self.outputPathTraining):
+            os.mkdir(self.outputPathTraining)
+        if not os.path.exists(self.outputPathTest):
+            os.mkdir(self.outputPathTest)
 
 if __name__ == '__main__':
     try:        
         print('Creating dataset...')
         dc = DatasetCreate()
 
-        dc.inputImagePath = os.path.join('..','..', 'imagenesPatron')
+        dc.checkFolder()
 
         fileList = os.listdir(dc.inputImagePath)
 
         # Creating dataset training
         for index in range(1,10):
             for file in fileList:
-                dc.initialize(file, str(index) + file)
+                dc.initialize(file, dc.outputPathTraining, str(index) + file )
         
-        dc.saveCsv()
+        dc.saveCsv(os.path.join(dc.outputPathTraining, 'annotations.csv'))
+        createTFRecord(os.path.join(dc.outputPath, 'train.record'), dc.outputPathTraining, os.path.join(dc.outputPathTraining, 'annotations.csv') )
+        
+        # Creating dataset test
+        dc.images_list = []
+        for index in range(1,10):
+            for file in fileList:
+                dc.initialize(file, dc.outputPathTest, str(index) + file )
+        
+        dc.saveCsv(os.path.join(dc.outputPathTest, 'annotations.csv'))
+        createTFRecord(os.path.join(dc.outputPath, 'test.record'), dc.outputPathTest, os.path.join(dc.outputPathTest, 'annotations.csv') )
+       
 
-        createTFRecord(os.path.join(dc.outputPath, 'train.record'), dc.outputPath, os.path.join(dc.outputPath, 'annotations.csv') )
-        
     except ValueError:
         print(ValueError)
