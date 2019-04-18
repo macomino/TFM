@@ -4,6 +4,7 @@ import random
 import os
 import pandas as pd
 from generate_tfrecord import createTFRecord
+import json
 
 class DatasetCreate:
 
@@ -11,7 +12,14 @@ class DatasetCreate:
     outputPathTraining = os.path.join( outputPath, 'train')
     outputPathTest = os.path.join( outputPath, 'test')
     inputImagePath = os.path.join('..','..', 'imagenesPatron')
+    inputJsonProperties = os.path.join(inputImagePath,'properties.json')
     images_list = []
+
+    def __init__(self):
+        self.checkFolder()
+        self.readJsonProperties()
+        self.fileList = [f for f in os.listdir(self.inputImagePath) if f.endswith('.jpg')] 
+
 
     def saveCsv(self, outputFile):
         column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
@@ -66,32 +74,33 @@ class DatasetCreate:
         if not os.path.exists(self.outputPathTest):
             os.mkdir(self.outputPathTest)
 
+    def readJsonProperties(self):
+        with open(self.inputJsonProperties) as json_file:  
+            data = json.load(json_file)
+            print(data)
+
+    def createDataset(self, iterations, outputPath, outputhFileRecord):
+        self.images_list = []
+        for index in range(1,iterations):
+            for file in self.fileList:
+                dc.initialize(file, outputPath, str(index) + file )
+        
+        dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
+        createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
+       
+
 if __name__ == '__main__':
     try:        
         print('Creating dataset...')
         dc = DatasetCreate()
+ 
+        # Generating training dataset
+        dc.createDataset(10, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
-        dc.checkFolder()
+        # Generating test dataset
+        dc.createDataset(5, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
 
-        fileList = os.listdir(dc.inputImagePath)
-
-        # Creating dataset training
-        for index in range(1,10):
-            for file in fileList:
-                dc.initialize(file, dc.outputPathTraining, str(index) + file )
-        
-        dc.saveCsv(os.path.join(dc.outputPathTraining, 'annotations.csv'))
-        createTFRecord(os.path.join(dc.outputPath, 'train.record'), dc.outputPathTraining, os.path.join(dc.outputPathTraining, 'annotations.csv') )
-        
-        # Creating dataset test
-        dc.images_list = []
-        for index in range(1,10):
-            for file in fileList:
-                dc.initialize(file, dc.outputPathTest, str(index) + file )
-        
-        dc.saveCsv(os.path.join(dc.outputPathTest, 'annotations.csv'))
-        createTFRecord(os.path.join(dc.outputPath, 'test.record'), dc.outputPathTest, os.path.join(dc.outputPathTest, 'annotations.csv') )
-       
+      
 
     except ValueError:
         print(ValueError)
