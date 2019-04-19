@@ -1,40 +1,40 @@
 item {
   id: 1
-  name: 'valvula1'
+  name: 'valve1'
 }
 
 item {
   id: 2
-  name: 'valvula2'
+  name: 'valve2'
 }
 
 item {
   id: 3
-  name: 'valvula3'
+  name: 'valve3'
 }
 
 item {
   id: 4
-  name: 'valvula4'
+  name: 'valve4'
 }
 
 item {
   id: 5
-  name: 'valvula5'
+  name: 'valve5'
 }
 
 item {
   id: 6
-  name: 'valvula6'
+  name: 'valve6'
 }
 
 item {
   id: 7
-  name: 'valvula7'
+  name: 'valve7'
 }
 
 item {
   id: 8
-  name: 'valvula8'
+  name: 'valve8'
 }
 
