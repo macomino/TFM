@@ -11,9 +11,11 @@ class DatasetCreate:
     outputPath = 'out'
     outputPathTraining = os.path.join( outputPath, 'train')
     outputPathTest = os.path.join( outputPath, 'test')
-    inputImagePath = os.path.join('..','..', 'imagenesPatron')
+    inputImagePath = os.path.join('..', 'PatternImages')
     inputJsonProperties = os.path.join(inputImagePath,'properties.json')
     images_list = []
+    fileList = []
+    tagLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
     def __init__(self):
         self.checkFolder()
@@ -38,11 +40,40 @@ class DatasetCreate:
                 )
         self.images_list.append(value)
 
+    def addText(self, image, imageFile):
+
+
+        property = [f for f in self.originProperties if f['name'] == imageFile]
+
+        if len(property) > 0:
+            for t in property[0]['texts']:
+                X = t['X']
+                Y = t['Y']
+                length = t['length']
+                fontSize = t['fontSize']
+
+                font                   = cv2.FONT_HERSHEY_PLAIN
+                bottomLeftCornerOfText = (X,Y)
+                fontScale              = fontSize
+                fontColor              = (0,0,0)
+                lineType               = 2
+
+                cv2.putText(image,''.join([random.choice(self.tagLetters) for f in range(1,length)]), 
+                    bottomLeftCornerOfText, 
+                    font, 
+                    fontScale,
+                    fontColor,
+                    lineType)
+
     def initialize(self, imageFile, outputPath, outputFile):
         width = random.randint(300,1000)
         height = random.randint(300,1000)
 
         imagen = cv2.imread(os.path.join(self.inputImagePath, imageFile))
+
+        self.addText(imagen, imageFile)
+
+
 
         imagen = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
         blank_image = np.zeros((height,width), np.uint8)
@@ -76,8 +107,7 @@ class DatasetCreate:
 
     def readJsonProperties(self):
         with open(self.inputJsonProperties) as json_file:  
-            data = json.load(json_file)
-            print(data)
+            self.originProperties = json.load(json_file)
 
     def createDataset(self, iterations, outputPath, outputhFileRecord):
         self.images_list = []

@@ -29,21 +29,21 @@ FLAGS = flags.FLAGS
 
 # TO-DO replace this with label map
 def class_text_to_int(row_label):
-    if row_label == 'valvula1':
+    if row_label == 'valve1':
         return 1
-    elif row_label == 'valvula2':
+    elif row_label == 'valve2':
         return 2
-    elif row_label == 'valvula3':
+    elif row_label == 'valve3':
         return 3
-    elif row_label == 'valvula4':
+    elif row_label == 'valve4':
         return 4
-    elif row_label == 'valvula5':
+    elif row_label == 'valve5':
         return 5
-    elif row_label == 'valvula6':
+    elif row_label == 'valve6':
         return 6
-    elif row_label == 'valvula7':
+    elif row_label == 'valve7':
         return 7
-    elif row_label == 'valvula8':
+    elif row_label == 'valve8':
         return 8
     else:
         None
