@@ -5,6 +5,7 @@ import os
 import pandas as pd
 from generate_tfrecord import createTFRecord
 import json
+import traceback
 
 class DatasetCreate:
 
@@ -41,8 +42,6 @@ class DatasetCreate:
         self.images_list.append(value)
 
     def addText(self, image, imageFile):
-
-
         property = [f for f in self.originProperties if f['name'] == imageFile]
 
         if len(property) > 0:
@@ -65,19 +64,28 @@ class DatasetCreate:
                     fontColor,
                     lineType)
 
-    def initialize(self, imageFile, outputPath, outputFile):
+    def generate(self, imageFile, outputPath, outputFile):
         width = random.randint(300,1000)
         height = random.randint(300,1000)
 
         imagen = cv2.imread(os.path.join(self.inputImagePath, imageFile))
 
+        #Add text component
         self.addText(imagen, imageFile)
-
-
 
         imagen = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
         blank_image = np.zeros((height,width), np.uint8)
         blank_image[:,:] = 255
+
+        #Random change brightness
+        imagen = self.changeBrigthness(imagen, random.randint(0,100))
+
+        #Random resize image component
+        condition = True
+        while condition:
+            resizeFactor = random.uniform(0.5, 1.5)
+            imagen = cv2.resize(imagen,None,fx=resizeFactor,fy=resizeFactor)
+            condition = (blank_image.shape[0] - imagen.shape[0])  < 0 or (blank_image.shape[1] - imagen.shape[1]) < 0
 
         #print(random.randint(1,101))
 
@@ -97,6 +105,9 @@ class DatasetCreate:
         cv2.imwrite(os.path.join(outputPath, outputFile), blank_image)
         return
 
+    def changeBrigthness(self, image, value):
+        return  np.where((255 - image) < value, 255,image+value)
+
     def checkFolder(self):
         if not os.path.exists(self.outputPath):
             os.mkdir(self.outputPath)
@@ -113,7 +124,7 @@ class DatasetCreate:
         self.images_list = []
         for index in range(1,iterations):
             for file in self.fileList:
-                dc.initialize(file, outputPath, str(index) + file )
+                dc.generate(file, outputPath, str(index) + file )
         
         dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
         createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
@@ -125,12 +136,12 @@ if __name__ == '__main__':
         dc = DatasetCreate()
  
         # Generating training dataset
-        dc.createDataset(10, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
+        dc.createDataset(100, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
         dc.createDataset(5, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
 
-      
+    except Exception as e:
+        print('Error: ' + str(e))
+        traceback.print_exc()
 
-    except ValueError:
-        print(ValueError)
