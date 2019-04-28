@@ -6,6 +6,7 @@ import pandas as pd
 from generate_tfrecord import createTFRecord
 import json
 import traceback
+from diagram import Diagram
 
 class DatasetCreate:
 
@@ -20,7 +21,6 @@ class DatasetCreate:
 
     def __init__(self):
         self.checkFolder()
-        self.readJsonProperties()
         self.fileList = [f for f in os.listdir(self.inputImagePath) if f.endswith('.jpg')] 
 
 
@@ -41,28 +41,7 @@ class DatasetCreate:
                 )
         self.images_list.append(value)
 
-    def addText(self, image, imageFile):
-        property = [f for f in self.originProperties if f['name'] == imageFile]
-
-        if len(property) > 0:
-            for t in property[0]['texts']:
-                X = t['X']
-                Y = t['Y']
-                length = t['length']
-                fontSize = t['fontSize']
-
-                font                   = cv2.FONT_HERSHEY_PLAIN
-                bottomLeftCornerOfText = (X,Y)
-                fontScale              = fontSize
-                fontColor              = (0,0,0)
-                lineType               = 2
-
-                cv2.putText(image,''.join([random.choice(self.tagLetters) for f in range(1,length)]), 
-                    bottomLeftCornerOfText, 
-                    font, 
-                    fontScale,
-                    fontColor,
-                    lineType)
+   
 
     def generate(self, imageFile, outputPath, outputFile):
         width = random.randint(300,1000)
@@ -71,7 +50,7 @@ class DatasetCreate:
         imagen = cv2.imread(os.path.join(self.inputImagePath, imageFile))
 
         #Add text component
-        self.addText(imagen, imageFile)
+        #self.addText(imagen, imageFile)
 
         imagen = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
         blank_image = np.zeros((height,width), np.uint8)
@@ -116,9 +95,7 @@ class DatasetCreate:
         if not os.path.exists(self.outputPathTest):
             os.mkdir(self.outputPathTest)
 
-    def readJsonProperties(self):
-        with open(self.inputJsonProperties) as json_file:  
-            self.originProperties = json.load(json_file)
+
 
     def createDataset(self, iterations, outputPath, outputhFileRecord):
         self.images_list = []
@@ -128,18 +105,29 @@ class DatasetCreate:
         
         dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
         createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
-       
+
+    def generateDataset(self, diagramNumber, outputPath, outputhFileRecord):
+        self.images_list = []
+        for i in range(1,diagramNumber + 1):
+            diagram = Diagram('diagram'+str(i)+'.jpg')
+            diagram.generateImage()
+            diagram.save(outputPath)
+            self.images_list = self.images_list + diagram.images_list
+
+        dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
+        createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
+
 
 if __name__ == '__main__':
     try:        
         print('Creating dataset...')
         dc = DatasetCreate()
- 
+
         # Generating training dataset
-        dc.createDataset(10, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
+        dc.generateDataset(200, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
-        dc.createDataset(5, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
+        dc.generateDataset(50, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
 
     except Exception as e:
         print('Error: ' + str(e))
