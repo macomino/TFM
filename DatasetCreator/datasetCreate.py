@@ -136,7 +136,7 @@ if __name__ == '__main__':
         dc = DatasetCreate()
  
         # Generating training dataset
-        dc.createDataset(100, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
+        dc.createDataset(10, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
         dc.createDataset(5, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
