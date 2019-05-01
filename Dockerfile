@@ -20,13 +20,33 @@ RUN conda update conda
 RUN conda update anaconda
 RUN conda update --all
 
-# Configuring access to Jupyter
-RUN mkdir /opt/notebooks
-#RUN jupyter notebook --generate-config --allow-root
-#RUN echo "c.NotebookApp.password = u'sha1:6a3f528eec40:6e896b6e4828f525a6e20e5411cd1c8075d68619'" >> /root/.jupyter/jupyter_notebook_config.py
+# Install tensorflow
+RUN pip install tensorflow
+
+# Install object detection dependencies
+ENV TZ=Europe/Minsk
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+RUN apt-get install -y protobuf-compiler python-pil python-lxml python-tk  git-core
+RUN pip install --user Cython
+RUN pip install --user contextlib2
+RUN pip install --user matplotlib
+
+# Create user folder
+RUN mkdir /u01
+RUN mkdir /u01/notebooks
+
+WORKDIR /u01/notebooks
+
+# Clone object detection tensorflow 
+RUN git clone https://github.com/tensorflow/models.git
+
+# Protobuf Compilation
+RUN cd models/research && protoc object_detection/protos/*.proto --python_out=/u01/notebooks/models/research
+
+RUN git clone https://github.com/macomino/TFM.git
 
 # Jupyter listens port: 8888
 EXPOSE 8888
 
 # Run Jupytewr notebook as Docker main process
-CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/opt/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
