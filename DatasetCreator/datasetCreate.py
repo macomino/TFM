@@ -10,16 +10,16 @@ from diagram import Diagram
 
 class DatasetCreate:
 
-    outputPath = 'out'
-    outputPathTraining = os.path.join( outputPath, 'train')
-    outputPathTest = os.path.join( outputPath, 'test')
-    inputImagePath = os.path.join('..', 'PatternImages')
-    inputJsonProperties = os.path.join(inputImagePath,'properties.json')
     images_list = []
     fileList = []
     tagLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
-    def __init__(self):
+    def __init__(self, inputImagePath, output):
+        self.outputPath = output
+        self.outputPathTraining = os.path.join(output, 'train')
+        self.outputPathTest = os.path.join(output, 'test')
+        self.inputImagePath = inputImagePath
+        self.inputJsonProperties = os.path.join(inputImagePath,'properties.json')
         self.checkFolder()
         self.fileList = [f for f in os.listdir(self.inputImagePath) if f.endswith('.jpg')] 
 
@@ -114,14 +114,14 @@ class DatasetCreate:
             diagram.save(outputPath)
             self.images_list = self.images_list + diagram.images_list
 
-        dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
+        self.saveCsv(os.path.join(outputPath, 'annotations.csv'))
         createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
 
 
 if __name__ == '__main__':
     try:        
         print('Creating dataset...')
-        dc = DatasetCreate()
+        dc = DatasetCreate(os.path.join('..', 'PatternImages'), 'out1')
 
         # Generating training dataset
         dc.generateDataset(200, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))

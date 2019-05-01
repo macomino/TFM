@@ -5,7 +5,7 @@ MAINTAINER macomino <macomino@crcit.es>
 RUN apt-get update && apt-get upgrade -y
 
 # Adding wget and bzip2
-RUN apt-get install -y wget bzip2 net-tools
+RUN apt-get install -y wget bzip2 net-tools libgl1-mesa-glx
 
 # Anaconda installing
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
@@ -19,6 +19,10 @@ ENV PATH /root/anaconda3/bin:$PATH
 RUN conda update conda
 RUN conda update anaconda
 RUN conda update --all
+RUN conda install -y -c conda-forge opencv
+RUN conda-develop /u01/notebooks/models
+RUN conda-develop /u01/notebooks/models/research/slim
+RUN conda-develop /u01/notebooks/models/research/
 
 # Install tensorflow
 RUN pip install tensorflow
