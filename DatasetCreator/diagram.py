@@ -35,7 +35,7 @@ class Diagram:
         for element in range(0, int(self.numXCell * self.numYCell * self.numComponentPercent)):
                 x = random.randint(1,self.numXCell - 2) * self.cellSize
                 y = random.randint(1,self.numYCell - 2) * self.cellSize
-                print('Coor: '+str(x)+','+str(y))
+                #print('Coor: '+str(x)+','+str(y))
 
                 patternImage, imageName = self.getRandomPatternimage()
                 patternImage = self.resizeImagePattern(patternImage)
