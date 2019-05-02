@@ -30,7 +30,7 @@ RUN pip install tensorflow
 # Install object detection dependencies
 ENV TZ=Europe/Minsk
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN apt-get install -y protobuf-compiler python-pil python-lxml python-tk  git-core
+RUN apt-get install -y protobuf-compiler python-pil python-lxml python-tk  git-core build-essential
 RUN pip install --user Cython
 RUN pip install --user contextlib2
 RUN pip install --user matplotlib
@@ -47,10 +47,19 @@ RUN git clone https://github.com/tensorflow/models.git
 # Protobuf Compilation
 RUN cd models/research && protoc object_detection/protos/*.proto --python_out=/u01/notebooks/models/research
 
-RUN git clone https://github.com/macomino/TFM.git
+# Install coco API metrics
+RUN git clone https://github.com/cocodataset/cocoapi.git
+RUN cd cocoapi/PythonAPI && make
+RUN cp -r cocoapi/PythonAPI/pycocotools /u01/notebooks/models/research/
+
+# Clone source code of the project
+RUN git  clone  https://github.com/macomino/TFM.git
+RUN wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Configs/
 
 # Jupyter listens port: 8888
 EXPOSE 8888
 
 # Run Jupytewr notebook as Docker main process
-CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks/TFM", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
