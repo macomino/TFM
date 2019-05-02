@@ -61,5 +61,16 @@ RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Con
 # Jupyter listens port: 8888
 EXPOSE 8888
 
+# Tensorbord listens port: 6006
+EXPOSE 6006
+
+#Clean temporal files
+RUN rm -rf cocoapi
+RUN rm -rf faster_rcnn_inception_v2_coco_2018_01_28
+RUN rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+
+#Create folder to training model
+RUN mkdir trainingmodel
+
 # Run Jupytewr notebook as Docker main process
-CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks/TFM", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
