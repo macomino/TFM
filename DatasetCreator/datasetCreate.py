@@ -22,6 +22,7 @@ class DatasetCreate:
         self.inputJsonProperties = os.path.join(inputImagePath,'properties.json')
         self.checkFolder()
         self.fileList = [f for f in os.listdir(self.inputImagePath) if f.endswith('.jpg')] 
+        self.readJsonProperties()
 
 
     def saveCsv(self, outputFile):
@@ -95,39 +96,42 @@ class DatasetCreate:
         if not os.path.exists(self.outputPathTest):
             os.mkdir(self.outputPathTest)
 
-
-
-    def createDataset(self, iterations, outputPath, outputhFileRecord):
-        self.images_list = []
-        for index in range(1,iterations):
-            for file in self.fileList:
-                dc.generate(file, outputPath, str(index) + file )
-        
-        dc.saveCsv(os.path.join(outputPath, 'annotations.csv'))
-        createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
-
     def generateDataset(self, diagramNumber, outputPath, outputhFileRecord):
         self.images_list = []
         for i in range(1,diagramNumber + 1):
-            diagram = Diagram('diagram'+str(i)+'.jpg')
+            diagram = Diagram('diagram'+str(i)+'.jpg', self.originProperties)
             diagram.generateImage()
             diagram.save(outputPath)
             self.images_list = self.images_list + diagram.images_list
 
         self.saveCsv(os.path.join(outputPath, 'annotations.csv'))
-        createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv') )
+        createTFRecord(outputhFileRecord, outputPath, os.path.join(outputPath, 'annotations.csv'), self.originProperties )
 
+    def readJsonProperties(self):
+        with open(self.inputJsonProperties) as json_file:  
+            self.originProperties = json.load(json_file)
+
+    def generatePbtxt(self):
+        with open(os.path.join(self.outputPath, 'label_map.pbtxt'), "w") as text_file:
+            for i, property in enumerate([f for f in self.originProperties if f['isComponent'] == True]):
+                text_file.writelines('item {\n')
+                text_file.writelines('  id: '+str(i)+'\n')
+                text_file.writelines('  name: \''+property['name'].split('.')[0]+'\'\n')
+                text_file.writelines('}\n\n')
+               
 
 if __name__ == '__main__':
     try:        
         print('Creating dataset...')
-        dc = DatasetCreate(os.path.join('..', 'PatternImages'), 'out1')
+        dc = DatasetCreate(os.path.join('..', 'PatternImages'), 'out')
 
         # Generating training dataset
         dc.generateDataset(200, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
         dc.generateDataset(50, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
+
+        dc.generatePbtxt()
 
     except Exception as e:
         print('Error: ' + str(e))

@@ -1,6 +1,7 @@
 [
    {
       "name":"valve1.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":45,
@@ -18,6 +19,7 @@
    },
    {
       "name":"valve2.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":45,
@@ -35,6 +37,7 @@
    },
    {
       "name":"valve3.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":45,
@@ -52,6 +55,7 @@
    },
    {
       "name":"valve4.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":45,
@@ -69,6 +73,7 @@
    },
    {
       "name":"valve5.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":115,
@@ -86,6 +91,7 @@
    },
    {
       "name":"valve6.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":115,
@@ -103,6 +109,7 @@
    },
    {
       "name":"valve7.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":50,
@@ -120,6 +127,7 @@
    },
    {
       "name":"valve8.jpg",
+	  "isComponent": true,
       "texts":[
          {
             "X":50,
@@ -129,6 +137,156 @@
          },
          {
             "X":60,
+            "Y":100,
+            "length":5,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"component1.jpg",
+	  "isComponent": true,
+      "texts":[
+         {
+            "X":150,
+            "Y":53,
+            "length":2,
+            "fontSize":2.5
+         },
+         {
+            "X":40,
+            "Y":100,
+            "length":11,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"navigation2Left.jpg",
+	  "isComponent": true,
+      "texts":[
+         {
+            "X":90,
+            "Y":110,
+            "length":11,
+            "fontSize":2.5
+         },
+         {
+            "X":420,
+            "Y":110,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":95,
+            "Y":50,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":380,
+            "Y":40,
+            "length":4,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"navigation2Right.jpg",
+	  "isComponent": true,
+      "texts":[
+         {
+            "X":140,
+            "Y":110,
+            "length":11,
+            "fontSize":2.5
+         },
+         {
+            "X":30,
+            "Y":110,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":35,
+            "Y":40,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":370,
+            "Y":50,
+            "length":2,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"navigationLeft.jpg",
+	  "isComponent": true,
+      "texts":[
+         {
+            "X":55,
+            "Y":95,
+            "length":11,
+            "fontSize":2.5
+         },
+         {
+            "X":395,
+            "Y":95,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":90,
+            "Y":40,
+            "length":3,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"navigationRight.jpg",
+	  "isComponent": true,
+      "texts":[
+         {
+            "X":151,
+            "Y":95,
+            "length":11,
+            "fontSize":2.5
+         },
+         {
+            "X":38,
+            "Y":95,
+            "length":3,
+            "fontSize":2.5
+         },
+         {
+            "X":340,
+            "Y":40,
+            "length":3,
+            "fontSize":2.5
+         }
+      ]
+   },
+   {
+      "name":"other2.jpg",
+	  "isComponent": false,
+      "texts":[
+      ]
+   },
+   {
+      "name":"other3.jpg",
+	  "isComponent": false,
+      "texts":[
+         {
+            "X":20,
+            "Y":50,
+            "length":6,
+            "fontSize":2.5
+         },
+         {
+            "X":40,
             "Y":100,
             "length":5,
             "fontSize":2.5
