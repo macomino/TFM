@@ -5,7 +5,7 @@ MAINTAINER macomino <macomino@crcit.es>
 RUN apt-get update && apt-get upgrade -y
 
 # Adding wget and bzip2
-RUN apt-get install -y wget bzip2 net-tools libgl1-mesa-glx
+RUN apt-get install -y wget bzip2 net-tools libgl1-mesa-glx lsb-release
 
 # Anaconda installing
 RUN wget https://repo.anaconda.com/archive/Anaconda3-2019.03-Linux-x86_64.sh
@@ -57,6 +57,12 @@ RUN git  clone  https://github.com/macomino/TFM.git
 RUN wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Configs/
+
+#Install Google Cloud SDK
+
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN apt-get update && apt-get install -y google-cloud-sdk
 
 # Jupyter listens port: 8888
 EXPOSE 8888
