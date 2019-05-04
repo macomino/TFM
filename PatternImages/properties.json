@@ -15,7 +15,19 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+		  {
+			 "X":0,
+			 "Y":34,
+			 "position":"left"
+		  }, 
+		  {
+			 "X":212,
+			 "Y":34,
+			 "position":"right"
+		  }
+	  ]
    },
    {
       "name":"valve2.jpg",
@@ -33,7 +45,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"valve3.jpg",
@@ -51,7 +65,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"valve4.jpg",
@@ -69,7 +85,19 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+		  {
+			 "X":0,
+			 "Y":34,
+			 "position":"left"
+		  }, 
+		  {
+			 "X":212,
+			 "Y":34,
+			 "position":"right"
+		  }
+	  ]
    },
    {
       "name":"valve5.jpg",
@@ -87,7 +115,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"valve6.jpg",
@@ -105,7 +135,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"valve7.jpg",
@@ -123,7 +155,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"valve8.jpg",
@@ -141,7 +175,9 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"component1.jpg",
@@ -159,7 +195,9 @@
             "length":11,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"navigation2Left.jpg",
@@ -189,7 +227,9 @@
             "length":4,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"navigation2Right.jpg",
@@ -219,7 +259,9 @@
             "length":2,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"navigationLeft.jpg",
@@ -243,7 +285,9 @@
             "length":3,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"navigationRight.jpg",
@@ -267,13 +311,17 @@
             "length":3,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"other2.jpg",
 	  "isComponent": false,
       "texts":[
-      ]
+      ],
+	  "connectors":[
+	  ]
    },
    {
       "name":"other3.jpg",
@@ -291,6 +339,8 @@
             "length":5,
             "fontSize":2.5
          }
-      ]
+      ],
+	  "connectors":[
+	  ]
    }
 ]

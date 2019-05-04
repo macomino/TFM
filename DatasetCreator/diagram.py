@@ -111,7 +111,36 @@ class Diagram:
     def generateImage(self):
         self.generateBaseDiagram()
         self.generateComponents()
+        self.connections()
 
+    def connections(self):
+        
+        for img in self.images_list:
+            distancesToOthers = []
+            x = img[4]
+            y = img[5]
+            for imgDts in self.images_list:
+                if img == imgDts:
+                    continue
+                xDest = imgDts[4]
+                yDest = imgDts[5]
+
+                distance = ((yDest - y) ** 2 + (xDest - x) ** 2 ) ** 0.5
+                distancesToOthers.append({'image': imgDts, 'distance': distance})
+
+            sorted_x = sorted(distancesToOthers, key=lambda kv: kv['distance'])
+            self.drawLine(img, sorted_x[0]['image'])
+
+    def drawLine(self, origin, destination):
+        lineThickness = 2
+        x1 = origin[4]
+        y1 = origin[5]
+        x2 = destination[4]
+        y2 = destination[5]
+        cv2.line(self.blank_image, (x1, y1), (x2, y2), (0,255,0), lineThickness)
+
+
+            
 
 
 if __name__ == '__main__':
