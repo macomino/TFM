@@ -5,6 +5,7 @@ import os
 import glob
 import traceback
 import json
+from connection import Connection
 
 class Diagram:
     minCells = 5
@@ -117,30 +118,59 @@ class Diagram:
         
         for img in self.images_list:
             distancesToOthers = []
-            x = img[4]
-            y = img[5]
-            for imgDts in self.images_list:
-                if img == imgDts:
-                    continue
-                xDest = imgDts[4]
-                yDest = imgDts[5]
-
-                distance = ((yDest - y) ** 2 + (xDest - x) ** 2 ) ** 0.5
-                distancesToOthers.append({'image': imgDts, 'distance': distance})
-
-            sorted_x = sorted(distancesToOthers, key=lambda kv: kv['distance'])
-            self.drawLine(img, sorted_x[0]['image'])
-
-    def drawLine(self, origin, destination):
-        lineThickness = 2
-        x1 = origin[4]
-        y1 = origin[5]
-        x2 = destination[4]
-        y2 = destination[5]
-        cv2.line(self.blank_image, (x1, y1), (x2, y2), (0,255,0), lineThickness)
-
-
+            propertyImg = [f for f in self.originProperties if f['name'].startswith(img[3])]
+            if len(propertyImg) < 0:
+                continue
             
+            for connectorImg in propertyImg[0]['connectors']:
+                x = img[4] + (img[6] - img[4]) * connectorImg['X']
+                y = img[5] + (img[7] - img[5]) * connectorImg['Y']
+
+                for imgDts in self.images_list:
+                    if img == imgDts:
+                        continue
+
+                    propertyDts = [f for f in self.originProperties if f['name'].startswith(imgDts[3])]
+                    if len(propertyDts) > 0:
+                        for connector in propertyDts[0]['connectors']:
+                            xDest = imgDts[4] + (imgDts[6] - imgDts[4]) * connector['X']
+                            yDest = imgDts[5] + (imgDts[7] - imgDts[5]) * connector['Y']
+
+                            distance = ((yDest - y) ** 2 + (xDest - x) ** 2 ) ** 0.5
+                            distancesToOthers.append({'image': imgDts, 'distance': distance, 'connector': connector})
+
+                if len(distancesToOthers) > 0:
+                    sorted_x = sorted(distancesToOthers, key=lambda kv: kv['distance'])
+                    self.drawLine(img, sorted_x[0]['image'], connectorImg, sorted_x[0]['connector'])
+
+    def drawLine(self, origin, destination, connectorOrigin, connectorDestination):
+        lineThickness = 2
+        x1 = int(origin[4] + (origin[6] - origin[4]) * connectorOrigin['X'])
+        y1 = int(origin[5] + (origin[7] - origin[5]) * connectorOrigin['Y'])
+        x2 = int(destination[4] + (destination[6] - destination[4]) * connectorDestination['X'])
+        y2 = int(destination[5] + (destination[7] - destination[5]) * connectorDestination['Y'])
+        #cv2.line(self.blank_image, (x1, y1), (x2, y2), (0,255,0), lineThickness)
+
+        connectorOrigin['RealX'] = x1
+        connectorOrigin['RealY'] = y1
+        connectorDestination['RealX'] = x2
+        connectorDestination['RealY'] = y2
+        #, connectorDestination
+
+
+
+        connection = Connection()
+        pointsList = connection.GetConnectionLine(origin, destination, connectorOrigin, connectorDestination)
+        lastPoint = None
+        for i, point in enumerate(pointsList):
+            if i == 0:
+                lastPoint = point
+                continue
+
+            cv2.line(self.blank_image, lastPoint, point, (0,255,0), lineThickness)
+            lastPoint = point
+
+          
 
 
 if __name__ == '__main__':

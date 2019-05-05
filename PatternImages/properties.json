@@ -19,12 +19,12 @@
 	  "connectors":[
 		  {
 			 "X":0,
-			 "Y":34,
+			 "Y":0.18,
 			 "position":"left"
 		  }, 
 		  {
-			 "X":212,
-			 "Y":34,
+			 "X":1,
+			 "Y":0.18,
 			 "position":"right"
 		  }
 	  ]
@@ -47,6 +47,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0,
+			 "Y":0.82,
+			 "position":"left"
+		  }, 
+		  {
+			 "X":1,
+			 "Y":0.82,
+			 "position":"right"
+		  }
 	  ]
    },
    {
@@ -67,6 +77,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0,
+			 "Y":0.82,
+			 "position":"left"
+		  }, 
+		  {
+			 "X":1,
+			 "Y":0.82,
+			 "position":"right"
+		  }
 	  ]
    },
    {
@@ -89,12 +109,12 @@
 	  "connectors":[
 		  {
 			 "X":0,
-			 "Y":34,
+			 "Y":0.18,
 			 "position":"left"
 		  }, 
 		  {
-			 "X":212,
-			 "Y":34,
+			 "X":1,
+			 "Y":0.18,
 			 "position":"right"
 		  }
 	  ]
@@ -117,6 +137,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0.1,
+			 "Y":0,
+			 "position":"top"
+		  }, 
+		  {
+			 "X":0.1,
+			 "Y":1,
+			 "position":"bottom"
+		  }
 	  ]
    },
    {
@@ -137,6 +167,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0.1,
+			 "Y":0,
+			 "position":"top"
+		  }, 
+		  {
+			 "X":0.1,
+			 "Y":1,
+			 "position":"bottom"
+		  }
 	  ]
    },
    {
@@ -157,6 +197,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0.88,
+			 "Y":0,
+			 "position":"top"
+		  }, 
+		  {
+			 "X":0.88,
+			 "Y":1,
+			 "position":"bottom"
+		  }
 	  ]
    },
    {
@@ -177,6 +227,16 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0.88,
+			 "Y":0,
+			 "position":"top"
+		  }, 
+		  {
+			 "X":0.88,
+			 "Y":1,
+			 "position":"bottom"
+		  }
 	  ]
    },
    {
@@ -229,6 +289,11 @@
          }
       ],
 	  "connectors":[
+		  {
+			 "X":0.96,
+			 "Y":0.51,
+			 "position":"right"
+		  }
 	  ]
    },
    {
@@ -261,6 +326,11 @@
          }
       ],
 	  "connectors":[
+			{
+			 "X":0,
+			 "Y":0.5,
+			 "position":"left"
+		  }
 	  ]
    },
    {
@@ -287,6 +357,11 @@
          }
       ],
 	  "connectors":[
+			{
+			 "X":0.96,
+			 "Y":0.49,
+			 "position":"right"
+		  }
 	  ]
    },
    {
@@ -313,6 +388,11 @@
          }
       ],
 	  "connectors":[
+	  	  {
+			 "X":0,
+			 "Y":0.49,
+			 "position":"left"
+		  }
 	  ]
    },
    {
