@@ -27,27 +27,28 @@ class Diagram:
         self.numYCell = random.randint(self.minCells,self.maxCells)
         self.diagramName = diagramName
         self.originProperties = originProperties
+        self.coordenates = []
 
     def generateBaseDiagram(self):
-        print('Diagram size: ' + str(self.numXCell) + 'x'+str(self.numYCell) +' cells | Cell size: '+str(self.cellSize))
+        print('Diagram size: ' + str(self.numXCell) + 'x'+str(self.numYCell) +' cells | Cell size: '+str(self.cellSize) + ' | numComponents: '+str(int(self.numXCell * self.numYCell * self.numComponentPercent)))
         self.blank_image = np.zeros((self.cellSize * self.numYCell ,self.cellSize * self.numXCell), np.uint8)
         self.blank_image[:,:] = 255
 
     def generateComponents(self):
         for element in range(0, int(self.numXCell * self.numYCell * self.numComponentPercent)):
-                x = random.randint(1,self.numXCell - 2) * self.cellSize
-                y = random.randint(1,self.numYCell - 2) * self.cellSize
-                
-                if [x, y] in self.coordenates:
-                    continue
-                #print('Coor: '+str(x)+','+str(y))
+            x = random.randint(1,self.numXCell - 2) * self.cellSize
+            y = random.randint(1,self.numYCell - 2) * self.cellSize
+            
+            if [x, y] in self.coordenates:
+                continue
+            #print('Coor: '+str(x)+','+str(y))
 
-                self.coordenates.append([x,y])
-                patternImage, imageName, isComponent = self.getRandomPatternimage()
-                patternImage = self.resizeImagePattern(patternImage)
-                self.blank_image[y:y+patternImage.shape[0], x:x+patternImage.shape[1]] = patternImage
-                if isComponent:
-                    self.addImageToList(self.diagramName, self.cellSize * self.numXCell, self.cellSize * self.numYCell, os.path.splitext(imageName)[0], x, y, x+patternImage.shape[1], y+patternImage.shape[0])
+            self.coordenates.append([x,y])
+            patternImage, imageName, isComponent = self.getRandomPatternimage()
+            patternImage = self.resizeImagePattern(patternImage)
+            self.blank_image[y:y+patternImage.shape[0], x:x+patternImage.shape[1]] = patternImage
+            if isComponent:
+                self.addImageToList(self.diagramName, self.cellSize * self.numXCell, self.cellSize * self.numYCell, os.path.splitext(imageName)[0], x, y, x+patternImage.shape[1], y+patternImage.shape[0])
 
 
     def getRandomPatternimage(self):

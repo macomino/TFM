@@ -115,7 +115,7 @@ class DatasetCreate:
         with open(os.path.join(self.outputPath, 'label_map.pbtxt'), "w") as text_file:
             for i, property in enumerate([f for f in self.originProperties if f['isComponent'] == True]):
                 text_file.writelines('item {\n')
-                text_file.writelines('  id: '+str(i)+'\n')
+                text_file.writelines('  id: '+str(i + 1)+'\n')
                 text_file.writelines('  name: \''+property['name'].split('.')[0]+'\'\n')
                 text_file.writelines('}\n\n')
                
@@ -126,10 +126,10 @@ if __name__ == '__main__':
         dc = DatasetCreate(os.path.join('..', 'PatternImages'), 'out')
 
         # Generating training dataset
-        dc.generateDataset(200, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
+        dc.generateDataset(1000, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
-        dc.generateDataset(50, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
+        dc.generateDataset(200, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
 
         dc.generatePbtxt()
 

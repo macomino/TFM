@@ -14,7 +14,7 @@ from collections import namedtuple, OrderedDict
 def class_text_to_int(row_label, originProperties):
     for i, property in enumerate([f for f in originProperties if f['isComponent'] == True]):
         if os.path.splitext(os.path.basename(property['name']))[0] == row_label:
-            return i
+            return i + 1
 
     return None
 
