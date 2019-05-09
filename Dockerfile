@@ -35,6 +35,9 @@ RUN pip install --user Cython
 RUN pip install --user contextlib2
 RUN pip install --user matplotlib
 
+# Install pygame
+RUN pip install pygame
+
 # Create user folder
 RUN mkdir /u01
 RUN mkdir /u01/notebooks
@@ -42,7 +45,7 @@ RUN mkdir /u01/notebooks
 WORKDIR /u01/notebooks
 
 # Clone object detection tensorflow 
-RUN git clone https://github.com/tensorflow/models.git
+RUN git clone  https://github.com/tensorflow/models.git
 
 # Protobuf Compilation
 RUN cd models/research && protoc object_detection/protos/*.proto --python_out=/u01/notebooks/models/research
@@ -53,7 +56,7 @@ RUN cd cocoapi/PythonAPI && make
 RUN cp -r cocoapi/PythonAPI/pycocotools /u01/notebooks/models/research/
 
 # Clone source code of the project
-RUN git  clone  https://github.com/macomino/TFM.git
+RUN git clone  https://github.com/macomino/TFM.git 
 RUN wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Configs/
