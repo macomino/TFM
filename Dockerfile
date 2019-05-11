@@ -70,7 +70,7 @@ RUN apt-get update && apt-get install -y google-cloud-sdk
 # Jupyter listens port: 8888
 EXPOSE 8888
 
-# Tensorbord listens port: 6006
+# Tensorboard listens port: 6006
 EXPOSE 6006
 
 #Clean temporal files
