@@ -51,7 +51,7 @@ RUN git clone  https://github.com/tensorflow/models.git
 RUN cd models/research && protoc object_detection/protos/*.proto --python_out=/u01/notebooks/models/research
 
 # Install coco API metrics
-RUN git clone https://github.com/cocodataset/cocoapi.git
+RUN git clone  https://github.com/cocodataset/cocoapi.git
 RUN cd cocoapi/PythonAPI && make
 RUN cp -r cocoapi/PythonAPI/pycocotools /u01/notebooks/models/research/
 

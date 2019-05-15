@@ -15,7 +15,7 @@ import json
 PATH_TO_CKPT = './frozen_inference_graph.pb'
 
 # Path to label map file
-PATH_TO_LABELS = os.path.join('../DatasetCreator/out','label_map.pbtxt')
+PATH_TO_LABELS = './label_map.pbtxt'
 
 # Number of classes the object detector can identify
 NUM_CLASSES = 13
