@@ -69,7 +69,7 @@ RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g @angular/cli
 
-RUN git clone https://github.com/macomino/TFM.git 
+RUN git clone   https://github.com/macomino/TFM.git 
 RUN cd /u01/notebooks/TFM/Frontend && npm install
 COPY ./DetectionComponentsAPI/frozen_inference_graph.pb ./TFM/DetectionComponentsAPI
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
