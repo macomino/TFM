@@ -58,22 +58,35 @@ RUN cp -r cocoapi/PythonAPI/pycocotools /u01/notebooks/models/research/
 # Clone source code of the project
 RUN wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 
-RUN git  clone  https://github.com/macomino/TFM.git 
+
+#Install Google Cloud SDK
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN apt-get update && apt-get install -y google-cloud-sdk
+
+#Install Node
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
+RUN apt-get install -y nodejs
+RUN npm install -g @angular/cli
+
+RUN git clone https://github.com/macomino/TFM.git 
+RUN cd /u01/notebooks/TFM/Frontend && npm install
 COPY ./DetectionComponentsAPI/frozen_inference_graph.pb ./TFM/DetectionComponentsAPI
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Configs/
 
-#Install Google Cloud SDK
-
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
-RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-RUN apt-get update && apt-get install -y google-cloud-sdk
 
 # Jupyter listens port: 8888
 EXPOSE 8888
 
 # Tensorboard listens port: 6006
 EXPOSE 6006
+
+# Frontend
+EXPOSE 4200
+
+# Backend
+EXPOSE 5050
 
 #Clean temporal files
 RUN rm -rf cocoapi
