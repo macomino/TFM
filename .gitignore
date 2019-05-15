@@ -3,3 +3,7 @@
 /Configs/model.ckpt.data-00000-of-00001
 /Configs/model.ckpt.index
 /DatasetCreator/__pycache__
+/Frontend/package-lock.json
+/DetectionComponentsAPI/tmp
+/DatasetCreator/prueba.jpg
+/DatasetCreator/*.bak

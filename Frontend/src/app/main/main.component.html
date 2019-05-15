@@ -26,39 +26,17 @@
         <mat-icon>menu</mat-icon>
       </button>
     </div>
+    <div>  <img src="assets/logo-kschool.png" style="height:30px;margin-top:10px;margin-right: 20px;"></div>
      <div>
+      
        <a>
           Components detection
        </a>
      </div>
-     <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
-        <ul fxLayout fxLayoutGap="20px" class="navigation-items">
-            <li>
-                <a>
-                  <mat-icon class="icon">input</mat-icon>
-                  <span  class="label">Login</span>
-                 </a>
-            </li>
-            <li>
-              <a >
-                  <mat-icon class="icon">home</mat-icon>
-                  <span class="label">Home</span>
-              </a>
-            </li>
-            <li>
-                <a>
-                    <mat-icon class="icon">dashboard</mat-icon>
-                    <span class="label">Dashboard</span>
-                </a>
-              </li>
-            <li>
-                <a>
-                  <mat-icon class="icon">input</mat-icon>
-                  <span class="label">LogOut</span>
-                 </a>
-            </li>
-        </ul>
-     </div>
+     <!--<div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
+       <img src="assets/logo-kschool.png" style="height:40px">
+        
+     </div>-->
     </mat-toolbar>
     <main>
     </main>
@@ -78,7 +56,7 @@
         <input type="file" id="diagram" (change)="onFileChange($event)"  #fileInput>
        
       </div>
-      <button type="submit" [disabled]="form.invalid || loading" class="mat-raised-button mat-primary">Process </button><i class="fa fa-spinner fa-spin fa-fw" ></i>
+      <button style="margin-top: 15px;" type="submit" [disabled]="invalid || loading " class="mat-raised-button mat-primary">Process </button><i style="margin-left: 10px;" class="fa fa-spinner fa-spin fa-fw" *ngIf="loading"></i>
     </form>
   </mat-card-content>
   <mat-card-actions>

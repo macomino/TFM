@@ -16,6 +16,7 @@ export class MainComponent {
   form: FormGroup;
   loading: boolean = false;
   imagePath: any;
+  invalid = true;
 
   @ViewChild('fileInput') fileInput: ElementRef;
   
@@ -30,6 +31,7 @@ export class MainComponent {
     private _sanitizer: DomSanitizer)
   {
     this.createForm();
+    this.imagePath = 'assets/point.png'
   }
 
   createForm() {
@@ -45,6 +47,7 @@ export class MainComponent {
       let file = event.target.files[0];
       reader.readAsDataURL(file);
       reader.onload = () => {
+        this.invalid = false;
         this.form.get('diagram').setValue({
           filename: file.name,
           filetype: file.type,
@@ -62,7 +65,9 @@ export class MainComponent {
     this.http.post('http://localhost:5050/diagramDetection', formModel.diagram.value).subscribe((value: any) =>{
       this.imagePath = this._sanitizer.bypassSecurityTrustResourceUrl('data:image/jpg;base64,'   + value.image);
       this.loading = false;
+      this.invalid = true;
     }, (error: any) => {
+      this.invalid = true;
       alert('An error ocurred: '+error)
     })
     

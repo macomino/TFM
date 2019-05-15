@@ -7,11 +7,12 @@ import os
 from object_detection.utils import label_map_util
 from object_detection.utils import visualization_utils as vis_util
 import base64
+import json
 
 
 # Path to frozen detection graph .pb file, which contains the model that is used
 # for object detection.
-PATH_TO_CKPT = '../../notebooktest/output/frozen_inference_graph.pb'
+PATH_TO_CKPT = './frozen_inference_graph.pb'
 
 # Path to label map file
 PATH_TO_LABELS = os.path.join('../DatasetCreator/out','label_map.pbtxt')
@@ -19,7 +20,7 @@ PATH_TO_LABELS = os.path.join('../DatasetCreator/out','label_map.pbtxt')
 # Number of classes the object detector can identify
 NUM_CLASSES = 13
 
-def processImage(image):
+def processImage():
 
     label_map = label_map_util.load_labelmap(PATH_TO_LABELS)
     categories = label_map_util.convert_label_map_to_categories(label_map, max_num_classes=NUM_CLASSES, use_display_name=True)
@@ -51,6 +52,7 @@ def processImage(image):
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
     #image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
+    image = cv2.imread('tmp')
     image_expanded = np.expand_dims(image, axis=0)
 
     (boxes, scores, classes, num) = sess.run(
@@ -67,7 +69,7 @@ def processImage(image):
         line_thickness=8,
         min_score_thresh=0.50)
 
-    return cv2.imencode('.jpg', image)[1].tostring()
+    return cv2.imencode('.jpg', image)[1]
 
 
 def diagramDetection(environ, start_response):
@@ -79,14 +81,23 @@ def diagramDetection(environ, start_response):
 
     request_body = environ['wsgi.input'].read(request_body_size)
 
-    nparr = np.fromstring(base64.b64decode(request_body), np.uint8)
-    img = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)
+    with open("tmp", "wb") as fh:
+        fh.write(base64.decodebytes(request_body))
 
-    
-    image_processed = processImage(img)
+    #bytesIn = base64.b64decode(request_body)
+    #nparr = np.fromstring(bytesIn, np.uint8)
+    #img = np.expand_dims(nparr, axis=0)
+    #img = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)
 
-    start_response('200 OK', [('Content-Type', 'image/jpeg;base64')])
-    return [image_processed]
+    img_bytes = processImage()
+    #byte_string = img_bytes.encode('utf-8')
+    image_processed =  base64.b64encode(img_bytes).decode("utf-8")
+
+    #start_response('200 OK', [('Content-Type', 'image/jpeg;base64'), ('Access-Control-Allow-Origin','*')])
+    #return [image_processed]
+
+    start_response('200 OK', [('Content-Type', 'application/json'), ('Access-Control-Allow-Origin','*')])
+    return [bytes('{"image":"'+str(image_processed)+'"}', 'utf8')]
 
 if __name__ == '__main__':
     try:
