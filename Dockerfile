@@ -56,9 +56,10 @@ RUN cd cocoapi/PythonAPI && make
 RUN cp -r cocoapi/PythonAPI/pycocotools /u01/notebooks/models/research/
 
 # Clone source code of the project
-RUN git clone  https://github.com/macomino/TFM.git 
-COPY ./DetectionComponentsAPI/frozen_inference_graph.pb ./TFM/DetectionComponentsAPI
 RUN wget http://download.tensorflow.org/models/object_detection/faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
+
+RUN git clone https://github.com/macomino/TFM.git 
+COPY ./DetectionComponentsAPI/frozen_inference_graph.pb ./TFM/DetectionComponentsAPI
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN cp -r faster_rcnn_inception_v2_coco_2018_01_28/model* /u01/notebooks/TFM/Configs/
 
@@ -83,4 +84,4 @@ RUN rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 RUN mkdir trainingmodel
 
 # Run Jupytewr notebook as Docker main process
-CMD ["jupyter", "notebook", "--allow-root", "--notebook-dir=/u01/notebooks", "--ip='0.0.0.0'", "--port=8888", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+CMD ["TFM/start.sh"]
