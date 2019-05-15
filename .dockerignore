@@ -1,1 +1,4 @@
-DatasetCreator/out
+**/.git
+**/Configs
+**/.cache
+**/DatasetCreator
