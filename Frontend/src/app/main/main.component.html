@@ -28,7 +28,7 @@
     </div>
      <div>
        <a>
-          Material Blog
+          Components detection
        </a>
      </div>
      <div fxFlex fxLayout fxLayoutAlign="flex-end"  fxHide.xs>
@@ -66,25 +66,22 @@
 </mat-sidenav-container>
 
 <mat-card class="example-card">
-  <mat-card-header>
+  <!--<mat-card-header>
     <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-title>Shiba Inu</mat-card-title>
-    <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-  </mat-card-header>
+   
+  </mat-card-header>-->
   <mat-card-content>
-    <label for="singleFile">Upload file</label>
-    <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/>
-    <br>
-    
-    <mat-file-upload-queue #fileUploadQueue
-        [fileAlias]="'file'"
-        [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
-    
-        <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-    </mat-file-upload-queue>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="avatar">Select file: </label>
+        <input type="file" id="diagram" (change)="onFileChange($event)"  #fileInput>
+       
+      </div>
+      <button type="submit" [disabled]="form.invalid || loading" class="mat-raised-button mat-primary">Process </button><i class="fa fa-spinner fa-spin fa-fw" ></i>
+    </form>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>LIKE</button>
-    <button mat-button>SHARE</button>
+    <img [src]="imagePath">
   </mat-card-actions>
 </mat-card>

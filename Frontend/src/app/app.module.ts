@@ -9,6 +9,8 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatMenuModule, MatCardModule } from '@angular/material';
 import {FlexLayoutModule} from '@angular/flex-layout';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
  
 
 @NgModule({
@@ -29,7 +31,9 @@ import { MatFileUploadModule } from 'angular-material-fileupload';
     MatMenuModule,
     FlexLayoutModule,
     MatCardModule,
-    MatFileUploadModule
+    MatFileUploadModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [MainComponent]
