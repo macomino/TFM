@@ -1,0 +1,65 @@
+item {
+  id: 1
+  name: 'valve1'
+}
+
+item {
+  id: 2
+  name: 'valve2'
+}
+
+item {
+  id: 3
+  name: 'valve3'
+}
+
+item {
+  id: 4
+  name: 'valve4'
+}
+
+item {
+  id: 5
+  name: 'valve5'
+}
+
+item {
+  id: 6
+  name: 'valve6'
+}
+
+item {
+  id: 7
+  name: 'valve7'
+}
+
+item {
+  id: 8
+  name: 'valve8'
+}
+
+item {
+  id: 9
+  name: 'component1'
+}
+
+item {
+  id: 10
+  name: 'navigation2Left'
+}
+
+item {
+  id: 11
+  name: 'navigation2Right'
+}
+
+item {
+  id: 12
+  name: 'navigationLeft'
+}
+
+item {
+  id: 13
+  name: 'navigationRight'
+}
+
