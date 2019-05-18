@@ -24,69 +24,10 @@ class DatasetCreate:
         self.fileList = [f for f in os.listdir(self.inputImagePath) if f.endswith('.jpg')] 
         self.readJsonProperties()
 
-
     def saveCsv(self, outputFile):
         column_name = ['filename', 'width', 'height', 'class', 'xmin', 'ymin', 'xmax', 'ymax']
         df = pd.DataFrame(self.images_list, columns=column_name)
         df.to_csv(outputFile, index=None)
-
-    def addImageToList(self, filename, width, height, clase, xmin, ymin, xmax, ymax):
-        value = (filename,
-                int(width),
-                int(height),
-                clase,
-                int(xmin),
-                int(ymin),
-                int(xmax),
-                int(ymax)
-                )
-        self.images_list.append(value)
-
-   
-
-    def generate(self, imageFile, outputPath, outputFile):
-        width = random.randint(300,1000)
-        height = random.randint(300,1000)
-
-        imagen = cv2.imread(os.path.join(self.inputImagePath, imageFile))
-
-        #Add text component
-        #self.addText(imagen, imageFile)
-
-        imagen = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
-        blank_image = np.zeros((height,width), np.uint8)
-        blank_image[:,:] = 255
-
-        #Random change brightness
-        imagen = self.changeBrigthness(imagen, random.randint(0,100))
-
-        #Random resize image component
-        condition = True
-        while condition:
-            resizeFactor = random.uniform(0.5, 1.5)
-            imagen = cv2.resize(imagen,None,fx=resizeFactor,fy=resizeFactor)
-            condition = (blank_image.shape[0] - imagen.shape[0])  < 0 or (blank_image.shape[1] - imagen.shape[1]) < 0
-
-        #print(random.randint(1,101))
-
-        y_offset = random.randint(0,blank_image.shape[0] - imagen.shape[0])
-        x_offset = random.randint(0,blank_image.shape[1] - imagen.shape[1])
-
-        #img = cv2.add(blank_image, imagen) 
-        print(imagen.shape)
-        print(blank_image.shape)
-        blank_image[y_offset:y_offset+imagen.shape[0], x_offset:x_offset+imagen.shape[1]] = imagen
-
-        #print(type(imagen))
-        #cv2.imshow("prueba", blank_image)
-        #cv2.waitKey(0)
-        self.addImageToList(outputFile, width, height, os.path.splitext(os.path.basename(imageFile))[0], x_offset, y_offset, x_offset+imagen.shape[1], y_offset+imagen.shape[0])
-
-        cv2.imwrite(os.path.join(outputPath, outputFile), blank_image)
-        return
-
-    def changeBrigthness(self, image, value):
-        return  np.where((255 - image) < value, 255,image+value)
 
     def checkFolder(self):
         if not os.path.exists(self.outputPath):

@@ -11,7 +11,7 @@ class Diagram:
     minCells = 5
     maxCells = 30
     minCellSize = 70
-    maxCellSize = 250   
+    maxCellSize = 350   
     blank_image = None
     numComponentPercent = 0.1
     patternsPath = os.path.join('..', 'PatternImages')
