@@ -61,7 +61,7 @@ RUN apt-get update && apt-get install -y google-cloud-sdk nodejs && npm install 
 
 
 
-RUN  git clone https://github.com/macomino/TFM.git 
+RUN  git clone   https://github.com/macomino/TFM.git 
 RUN cd /u01/notebooks/TFM/Frontend && npm install
 COPY ./DetectionComponentsAPI/frozen_inference_graph.pb ./TFM/DetectionComponentsAPI
 RUN tar -xvzf faster_rcnn_inception_v2_coco_2018_01_28.tar.gz

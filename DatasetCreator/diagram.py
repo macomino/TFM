@@ -30,7 +30,7 @@ class Diagram:
         self.coordenates = []
 
     def generateBaseDiagram(self):
-        print('Diagram size: ' + str(self.numXCell) + 'x'+str(self.numYCell) +' cells | Cell size: '+str(self.cellSize) + ' | numComponents: '+str(int(self.numXCell * self.numYCell * self.numComponentPercent)))
+        print(self.diagramName +' | Diagram size: ' + str(self.numXCell) + 'x'+str(self.numYCell) +' cells | Cell size: '+str(self.cellSize) + ' | numComponents: '+str(int(self.numXCell * self.numYCell * self.numComponentPercent)))
         self.blank_image = np.zeros((self.cellSize * self.numYCell ,self.cellSize * self.numXCell), np.uint8)
         self.blank_image[:,:] = 255
 
