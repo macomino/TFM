@@ -70,7 +70,7 @@ if __name__ == '__main__':
         dc.generateDataset(100, dc.outputPathTraining, os.path.join(dc.outputPath, 'train.record'))
 
         # Generating test dataset
-        dc.generateDataset(200, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
+        dc.generateDataset(10, dc.outputPathTest, os.path.join(dc.outputPath, 'test.record'))
 
         dc.generatePbtxt()
 
