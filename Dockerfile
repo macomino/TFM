@@ -89,5 +89,5 @@ RUN rm faster_rcnn_inception_v2_coco_2018_01_28.tar.gz
 
 RUN chmod +x /u01/notebooks/TFM/start.sh
 
-# Run Jupytewr notebook as Docker main process
+# Run start script as Docker main process
 CMD ["/u01/notebooks/TFM/start.sh"]
