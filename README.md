@@ -1,7 +1,6 @@
 # TRABAJO FIN DE MÁSTER
 
-## Sistema de detección de componentes en diagramas de tuberías e
-instrumentación
+## Sistema de detección de componentes en diagramas de tuberías e instrumentación
 
 1.  **MOTIVACION DEL PROYECTO**
 
