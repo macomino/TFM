@@ -140,9 +140,7 @@ ficheros generados
 from datasetCreate import DatasetCreate
 
 imagesInputPath = 'input'
-
 outputPath = 'output'
-
 dc = DatasetCreate(imagesInputPath, outputPath)
 ```
 Posteriormente llamamos al método generateDataset, indicándole el número de
@@ -181,33 +179,26 @@ configuración necesaria para entrenar el modelo.
 
 El esquema de este fichero se muestra a continuación:
 
+```
 model {
-
 (... Add model config here...)
-
 }
 
 train_config : {
-
 (... Add train_config here...)
-
 }
 
 train_input_reader: {
-
 (... Add train_input configuration here...)
-
 }
 
 eval_config: {
-
 }
 
 eval_input_reader: {
-
 (... Add eval_input configuration here...)
-
 }
+```
 
 8.  **SELECCIÓN DE PARAMETROS EN EL MODELO**
 
@@ -257,21 +248,16 @@ se llevará a cabo el proceso de entrenamiento reduciendo los tiempos.
 La configuración empleada se puede encontrar en el fichero cloud.yml dentro de
 la carpeta Configs
 
+```
 trainingInput:
-
 runtimeVersion: "1.12"
-
 scaleTier: CUSTOM
-
 masterType: standard_gpu
-
 workerCount: 0
-
 workerType: standard_gpu
-
 parameterServerCount: 0
-
 parameterServerType: standard
+```
 
 Con esta configuración disponemos de un servidor con una NVIDIA Tesla K80.
 
