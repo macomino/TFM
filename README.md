@@ -309,7 +309,7 @@ siguiente tabla se describe cada una de las medidas obtenidas:
 | DetectionBoxes_Precision/mAP (small)                                                     | Mean average precision para imágenes pequeñas (área \< 32\^2 pixeles).                                     |
 | DetectionBoxes_Precision/mAP (medium)                                                    | Mean average precision para imágenes medias (32\^2 pixeles \< área \< 96\^2 pixeles).                      |
 | DetectionBoxes_Precision/mAP (large)                                                     | Mean average precision para imágenes grandes (96\^2 pixeles \< área \< 10000\^2 pixeles).                  |
-| **DetectionBoxes_Recall>**                              |                                                                                                            |
+| **DetectionBoxes_Recall**                              |                                                                                                            |
 | DetectionBoxes_Recall/AR@1                                                           | Recall medio con 1 detección                                                                               |
 | DetectionBoxes_Recall/AR@10                                                        | Recall medio con 10 detección                                                                              |
 | DetectionBoxes_Recall/AR@100                                                           | Recall medio con 100 detección                                                                             |
@@ -338,7 +338,7 @@ y el tiempo total de entrenamiento que ha llevado.
 
 **Detection Boxes Precision**
 
-| **Model**      | **Step** | **mAP** | **mAP (large)** | **mAP (medium)** | **mAP (small)** | **mAP\@.50IOU** | **mAP\@.75IOU** | **Time** |
+| **Model**      | **Step** | **mAP** | **mAP (large)** | **mAP (medium)** | **mAP (small)** | **mAP@.50IOU** | **mAP@.75IOU** | **Time** |
 |----------------|----------|---------|-----------------|------------------|-----------------|-----------------|-----------------|----------|
 | rfcn_resnet101 | 100000   | 0.6409  | 0.6574          | 0.63             | \-1             | 0.8786          | 0.7633          | 1d 1h    |
 | ssd_mobilenet  | 134000   | 0.028   | 0.026           | 0.039            | \-1             | 0.067           | 0.018           | 20h      |
@@ -346,7 +346,7 @@ y el tiempo total de entrenamiento que ha llevado.
 
 **Detection Boxes Recall**
 
-| **Model**      | **Step** | **AR\@1** | **AR\@10** | **AR\@100** | **AR\@100 (large)** | **AR\@100 (medium)** | **AR\@100 (small)** | **Time** |
+| **Model**      | **Step** | **AR\@1** | **AR\@10** | **AR\@100** | **AR\@100 (large)** | **AR@100 (medium)** | **AR@100 (small)** | **Time** |
 |----------------|----------|-----------|------------|-------------|---------------------|----------------------|---------------------|----------|
 | rfcn_resnet101 | 100000   | 0.2985    | 0.7446     | 0.7595      | 0.7712              | 0.7461               | \-1                 | 1d 1h    |
 | ssd_mobilenet  | 134000   | 0.029     | 0.049      | 0.049       | 0.04897             | 0.05177              | \-1                 | 20h      |
