@@ -308,13 +308,13 @@ siguiente tabla se describe cada una de las medidas obtenidas:
 | DetectionBoxes_Precision/mAP (small)                                                     | Mean average precision para imágenes pequeñas (área \< 32\^2 pixeles).                                     |
 | DetectionBoxes_Precision/mAP (medium)                                                    | Mean average precision para imágenes medias (32\^2 pixeles \< área \< 96\^2 pixeles).                      |
 | DetectionBoxes_Precision/mAP (large)                                                     | Mean average precision para imágenes grandes (96\^2 pixeles \< área \< 10000\^2 pixeles).                  |
-| [DetectionBoxes_Recall](mailto:DetectionBoxes_Recall/AR@1)                               |                                                                                                            |
+| <DetectionBoxes_Recall>                               |                                                                                                            |
 | <DetectionBoxes_Recall/AR@1>                                                             | Recall medio con 1 detección                                                                               |
 | <DetectionBoxes_Recall/AR@10>                                                            | Recall medio con 10 detección                                                                              |
 | <DetectionBoxes_Recall/AR@100>                                                           | Recall medio con 100 detección                                                                             |
-| [DetectionBoxes_Recall/AR\@100 (small)](mailto:DetectionBoxes_Recall/AR@100%20(small))   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
-| [DetectionBoxes_Recall/AR\@100 (medium)](mailto:DetectionBoxes_Recall/AR@100%20(medium)) | Recall medio para imágenes medias con 100 detecciones                                                      |
-| [DetectionBoxes_Recall/AR\@100 (large)](mailto:DetectionBoxes_Recall/AR@100%20(large))   | Recall medio para imágenes grandes con 100 detecciones                                                     |
+| <DetectionBoxes_Recall/AR\@100 (small)>   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
+| <DetectionBoxes_Recall/AR\@100 (medium)]> | Recall medio para imágenes medias con 100 detecciones                                                      |
+| <DetectionBoxes_Recall/AR\@100>   | Recall medio para imágenes grandes con 100 detecciones                                                     |
 | Loss                                                                                     |                                                                                                            |
 | BoxClassifierLoss/classification_loss                                                    | Pérdidas para la clasificación de objetos detectados con varias clases.                                    |
 | BoxClassifierLoss/localization_loss                                                      | Pérdidas de localización o las pérdidas del regresor del área delimitadora                                 |
