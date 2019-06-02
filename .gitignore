@@ -7,3 +7,9 @@
 /DetectionComponentsAPI/tmp
 /DatasetCreator/prueba.jpg
 /DatasetCreator/*.bak
+/DetectionComponentsAPI/.vscode
+/Configs/modelOrigin
+/DetectionComponentsAPI/frozen_inference_graph.pb
+/Configs/faster_rcnn_inception_v2.config
+/Configs/rfcn_resnet101.config_old
+/Configs/ssd_mobilenet_win.config
