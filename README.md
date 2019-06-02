@@ -2,7 +2,7 @@
 
 ## Sistema de detección de componentes en diagramas de tuberías e instrumentación
 
-1.  **MOTIVACION DEL PROYECTO**
+**1.  MOTIVACION DEL PROYECTO**
 
 Para muchos procesos de la industria se emplean diagramas que muestran las
 tuberías y componentes relacionados del proceso físico que representan. Estos
