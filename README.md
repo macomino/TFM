@@ -1,4 +1,4 @@
-#TRABAJO FIN DE MÁSTER
+# TRABAJO FIN DE MÁSTER
 
 **Sistema de detección de componentes en diagramas de tuberías e
 instrumentación**
