@@ -51,7 +51,6 @@ def processImage():
     # Number of objects detected
     num_detections = detection_graph.get_tensor_by_name('num_detections:0')
 
-    #image = cv2.cvtColor(np.array(image), cv2.COLOR_BGR2GRAY)
     image = cv2.imread('tmp')
     image_expanded = np.expand_dims(image, axis=0)
 
@@ -84,17 +83,8 @@ def diagramDetection(environ, start_response):
     with open("tmp", "wb") as fh:
         fh.write(base64.decodebytes(request_body))
 
-    #bytesIn = base64.b64decode(request_body)
-    #nparr = np.fromstring(bytesIn, np.uint8)
-    #img = np.expand_dims(nparr, axis=0)
-    #img = cv2.imdecode(nparr, cv2.COLOR_BGR2GRAY)
-
     img_bytes = processImage()
-    #byte_string = img_bytes.encode('utf-8')
     image_processed =  base64.b64encode(img_bytes).decode("utf-8")
-
-    #start_response('200 OK', [('Content-Type', 'image/jpeg;base64'), ('Access-Control-Allow-Origin','*')])
-    #return [image_processed]
 
     start_response('200 OK', [('Content-Type', 'application/json'), ('Access-Control-Allow-Origin','*')])
     return [bytes('{"image":"'+str(image_processed)+'"}', 'utf8')]
