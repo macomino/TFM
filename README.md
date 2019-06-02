@@ -136,6 +136,7 @@ clase datasetCreate, pasándole el path donde se encuentran las imágenes de los
 componentes que se usarán para generar el diagrama y el path de salida de los
 ficheros generados
 
+```
 from datasetCreate import DatasetCreate
 
 imagesInputPath = 'input'
@@ -143,12 +144,13 @@ imagesInputPath = 'input'
 outputPath = 'output'
 
 dc = DatasetCreate(imagesInputPath, outputPath)
-
+```
 Posteriormente llamamos al método generateDataset, indicándole el número de
 imágenes, la carpeta donde se van a generar dichas imágenes y el nombre del
 fichero TFRecord de salida
-
+```
 dc.generateDataset(100, 'imagesTraining', 'train.record')
+```
 
 6.  **ELECCIÓN DE MODELO**
 
