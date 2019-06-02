@@ -430,5 +430,5 @@ es muy sencillo introducir nuevos componentes para reconocer e incluso entrenar
 el modelo para otro tipo de diagramas que usen representaciones diferentes de
 componentes.
 
-Miguel Ángel Comino Mateos (@macominom)[https://twitter.com/macominom], Madrid, junio 2019
+Miguel Ángel Comino Mateos [@macominom](https://twitter.com/macominom), Madrid, junio 2019
 
