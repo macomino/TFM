@@ -66,7 +66,9 @@ Para facilitar la ejecución y evitar tener que instalar todas las dependencias
 necesarias se ha creado una imagen Docker con todo lo necesario ya configurado.
 Para crearnos un contenedor y ejecutarlo a partir de la imagen hay que ejecutar:
 
+```
 docker run -d -p 8888:8888 -p 6006:6006 -p 4200:4200 -p 5050:5050 macomino/tfm
+```
 
 Los puertos siguientes son necesarios para los siguientes servicios:
 
