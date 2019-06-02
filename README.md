@@ -218,7 +218,6 @@ objetos en 80 categorías.
 Los modelos que se han evaluado en este TFM son los siguientes:
 
 | R-FCN Resnet                 | <https://arxiv.org/abs/1605.06409> |
-|------------------------------|------------------------------------|
 | SSD Mobilenet                | <https://arxiv.org/abs/1512.02325> |
 | Faster rcnn inception resnet | <https://arxiv.org/abs/1504.08083> |
 
@@ -303,18 +302,18 @@ siguiente tabla se describe cada una de las medidas obtenidas:
 | DetectionBoxes_Precision                                                                 |                                                                                                            |
 |------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | DetectionBoxes_Precision/mAP                                                             | Mean average precisión de las clases promediada con la IoU que van desde 0.5 a 0.95 en incrementos de 0.05 |
-| [DetectionBoxes_Precision/mAP\@.50IOU](DetectionBoxes_Precision/mAP@.50IOU)              | Mean average precision con 50% IOU                                                                         |
-| [DetectionBoxes_Precision/mAP\@.75IOU](DetectionBoxes_Precision/mAP@.75IOU)              | Mean average precision con 75% IOU                                                                         |
+| DetectionBoxes_Precision/mAP\@.50IOU              | Mean average precision con 50% IOU                                                                         |
+| DetectionBoxes_Precision/mAP\@.75IOU              | Mean average precision con 75% IOU                                                                         |
 | DetectionBoxes_Precision/mAP (small)                                                     | Mean average precision para imágenes pequeñas (área \< 32\^2 pixeles).                                     |
 | DetectionBoxes_Precision/mAP (medium)                                                    | Mean average precision para imágenes medias (32\^2 pixeles \< área \< 96\^2 pixeles).                      |
 | DetectionBoxes_Precision/mAP (large)                                                     | Mean average precision para imágenes grandes (96\^2 pixeles \< área \< 10000\^2 pixeles).                  |
-| <DetectionBoxes_Recall>                               |                                                                                                            |
-| <DetectionBoxes_Recall/AR@1>                                                             | Recall medio con 1 detección                                                                               |
-| <DetectionBoxes_Recall/AR@10>                                                            | Recall medio con 10 detección                                                                              |
-| <DetectionBoxes_Recall/AR@100>                                                           | Recall medio con 100 detección                                                                             |
-| <DetectionBoxes_Recall/AR\@100 (small)>   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
-| <DetectionBoxes_Recall/AR\@100 (medium)]> | Recall medio para imágenes medias con 100 detecciones                                                      |
-| <DetectionBoxes_Recall/AR\@100>   | Recall medio para imágenes grandes con 100 detecciones                                                     |
+| DetectionBoxes_Recall>                               |                                                                                                            |
+| DetectionBoxes_Recall/AR@1                                                           | Recall medio con 1 detección                                                                               |
+| DetectionBoxes_Recall/AR@10                                                        | Recall medio con 10 detección                                                                              |
+| DetectionBoxes_Recall/AR@100                                                           | Recall medio con 100 detección                                                                             |
+| DetectionBoxes_Recall/AR\@100 (small)   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
+| DetectionBoxes_Recall/AR\@100 (medium)] | Recall medio para imágenes medias con 100 detecciones                                                      |
+| DetectionBoxes_Recall/AR\@100   | Recall medio para imágenes grandes con 100 detecciones                                                     |
 | Loss                                                                                     |                                                                                                            |
 | BoxClassifierLoss/classification_loss                                                    | Pérdidas para la clasificación de objetos detectados con varias clases.                                    |
 | BoxClassifierLoss/localization_loss                                                      | Pérdidas de localización o las pérdidas del regresor del área delimitadora                                 |
