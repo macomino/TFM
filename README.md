@@ -1,4 +1,4 @@
-TRABAJO FIN DE MÁSTER
+#TRABAJO FIN DE MÁSTER
 
 **Sistema de detección de componentes en diagramas de tuberías e
 instrumentación**
@@ -21,7 +21,7 @@ Este trabajo manual, unido a que en ocasiones se trabaja del orden de miles de
 planos, es lo que ha motivado la realización de este TFM para la automatización
 de estas tareas.
 
-1.  **OBJETIVOS**
+2.  **OBJETIVOS**
 
 El objetivo del proyecto sería el reconocimiento de los diferentes componentes
 que hay en un plano, identificando su tipo y la posición donde está ubicado:
@@ -29,7 +29,7 @@ coordenada x, y, ancho y alto del área que engloba al componente.
 
 ![](media/a6ab7cbfa0abe56199ebd9f137f191ac.png)
 
-1.  **ENTORNO**
+3.  **ENTORNO**
 
 Estructura del repositorio:
 
@@ -86,7 +86,7 @@ el fichero Dockerfile ubicado en la raíz del repositorio. Los notebooks
 aportados y todo el código fuente se encuentran dentro de la carpeta TFM de la
 imagen
 
-1.  **OBTENCION DE DATOS**
+4.  **OBTENCION DE DATOS**
 
 Debido a la cantidad de imágenes etiquetadas que harían falta para poder
 entrenar el modelo y para evitar problemas de propiedad intelectual de los
@@ -123,7 +123,7 @@ Por último, la herramienta empaqueta todas las imágenes, junto con sus
 etiquetas, en un fichero TFRecord, que es el formato de datos que Tensorflow
 espera para los dataset de training y test.
 
-1.  **GENERACION DE DATOS PARA ENTRENAMIENTO Y TEST**
+5.  **GENERACION DE DATOS PARA ENTRENAMIENTO Y TEST**
 
 La generación de los dataset de training y test se pueden realizar desde el
 notebook
@@ -149,7 +149,7 @@ fichero TFRecord de salida
 
 dc.generateDataset(100, 'imagesTraining', 'train.record')
 
-1.  **ELECCIÓN DE MODELO**
+6.  **ELECCIÓN DE MODELO**
 
 El problema planteado consiste en la identificación, clasificación y
 localización de múltiples objetos en una imagen. En la actualidad, es una de las
@@ -170,7 +170,7 @@ estos modelos es *Tensorflow object dectection*
 que construido sobre Tensorflow facilita la construcción, entrenamiento y
 despliegue de modelos de detección de objetos
 
-1.  **CONFIGURACION DEL ENTRENAMIENTO**
+7.  **CONFIGURACION DEL ENTRENAMIENTO**
 
 La configuración del modelo en Tensorflow object detection se realiza mediante
 una pipeline que se guarda en un fichero \*.config donde se define toda la
@@ -206,7 +206,7 @@ eval_input_reader: {
 
 }
 
-1.  **SELECCIÓN DE PARAMETROS EN EL MODELO**
+8.  **SELECCIÓN DE PARAMETROS EN EL MODELO**
 
 Hay un gran numero de parámetros para configurar los modelos. La elección de la
 mejor configuración es un proceso complejo que llevaría mucho tiempo, por lo que
@@ -228,7 +228,7 @@ Los modelos que se han evaluado en este TFM son los siguientes:
 | SSD Mobilenet                | <https://arxiv.org/abs/1512.02325> |
 | Faster rcnn inception resnet | <https://arxiv.org/abs/1504.08083> |
 
-1.  **ENTRENAMIENTO DEL MODELO**
+9.  **ENTRENAMIENTO DEL MODELO**
 
 Inicialmente el modelo se comenzó a entrenar desde la propia imagen de Docker,
 pero debido a la baja velocidad que se conseguía debido a las características
@@ -276,7 +276,7 @@ Para realizar el entrenamiento en Google Cloud se dispone de otro notebook en la
 carpeta TFM/ GoogleCloudAITrainingConfig.ipynb con los pasos necesarios para
 configurar y lanzar el proceso.
 
-1.  **METRICAS**
+10.  **METRICAS**
 
 En la detección de objetos tenemos dos tareas que medir, por un lado, determinar
 si un objeto existe o no en la imagen, que seria un problema de clasificación, y
@@ -332,7 +332,7 @@ siguiente tabla se describe cada una de las medidas obtenidas:
 | RPNLoss/localization_loss                                                                | Pérdidas de localización o las pérdidas del regresor del área delimitadora para el RPN                     |
 | RPNLoss/objectness_loss                                                                  | Pérdidas del clasificador que decide si un área delimitadora es un objeto de interés o de fondo.           |
 
-1.  **EVALUACION RESULTADOS**
+11.  **EVALUACION RESULTADOS**
 
 Todos los entrenamientos se han realizado con un dataset de 1000 imágenes para
 el training y 100 para el test (un 10%).
@@ -410,7 +410,7 @@ De los resultados obtenidos podemos observar:
 
 ![C:\\Users\\barde\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Content.MSO\\EF035B95.tmp](media/e614ea4a92a217764fcc2ea5527bfdf5.jpg)
 
-1.  **VISUALIZACION**
+12.  **VISUALIZACION**
 
 Para el empleo y visualización del mejor modelo entrenado se ha desarrollado un
 API Rest disponible desde el puerto 5050. Esta API tiene un método que requiere
@@ -428,7 +428,7 @@ aplicación es accesible desde el puerto 4200. (<http://localhost:4200/>)
 En el repositorio, dentro de la carpeta TestImages, hay algunos diagramas de
 ejemplo para realizar pruebas desde el frontend.
 
-1.  **CONCLUSIONES**
+13.  **CONCLUSIONES**
 
 *El objetivo principal planteado se ha cumplido.*
 
