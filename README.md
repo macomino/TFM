@@ -1,11 +1,10 @@
-TRABAJO FIN DE MÁSTER
+# TRABAJO FIN DE MÁSTER
 
-[Memoria en pdf](MemoriaTFM.pdf)
+[Memoria en PDF](MemoriaTFM.pdf)
 
-**Sistema de detección de componentes en diagramas de tuberías e
-instrumentación**
+## Sistema de detección de componentes en diagramas de tuberías e instrumentación
 
-1.  **MOTIVACION DEL PROYECTO**
+**1.  MOTIVACION DEL PROYECTO**
 
 Para muchos procesos de la industria se emplean diagramas que muestran las
 tuberías y componentes relacionados del proceso físico que representan. Estos
@@ -23,7 +22,7 @@ Este trabajo manual, unido a que en ocasiones se trabaja del orden de miles de
 planos, es lo que ha motivado la realización de este TFM para la automatización
 de estas tareas.
 
-1.  **OBJETIVOS**
+**2.  OBJETIVOS**
 
 El objetivo del proyecto sería el reconocimiento de los diferentes componentes
 que hay en un plano, identificando su tipo y la posición donde está ubicado:
@@ -31,7 +30,7 @@ coordenada x, y, ancho y alto del área que engloba al componente.
 
 ![](media/a6ab7cbfa0abe56199ebd9f137f191ac.png)
 
-1.  **ENTORNO**
+**3.  ENTORNO**
 
 Estructura del repositorio:
 
@@ -69,7 +68,9 @@ Para facilitar la ejecución y evitar tener que instalar todas las dependencias
 necesarias se ha creado una imagen Docker con todo lo necesario ya configurado.
 Para crearnos un contenedor y ejecutarlo a partir de la imagen hay que ejecutar:
 
+```
 docker run -d -p 8888:8888 -p 6006:6006 -p 4200:4200 -p 5050:5050 macomino/tfm
+```
 
 Los puertos siguientes son necesarios para los siguientes servicios:
 
@@ -88,7 +89,7 @@ el fichero Dockerfile ubicado en la raíz del repositorio. Los notebooks
 aportados y todo el código fuente se encuentran dentro de la carpeta TFM de la
 imagen
 
-1.  **OBTENCION DE DATOS**
+**4.  OBTENCION DE DATOS**
 
 Debido a la cantidad de imágenes etiquetadas que harían falta para poder
 entrenar el modelo y para evitar problemas de propiedad intelectual de los
@@ -125,7 +126,7 @@ Por último, la herramienta empaqueta todas las imágenes, junto con sus
 etiquetas, en un fichero TFRecord, que es el formato de datos que Tensorflow
 espera para los dataset de training y test.
 
-1.  **GENERACION DE DATOS PARA ENTRENAMIENTO Y TEST**
+**5.  GENERACION DE DATOS PARA ENTRENAMIENTO Y TEST**
 
 La generación de los dataset de training y test se pueden realizar desde el
 notebook
@@ -137,21 +138,21 @@ clase datasetCreate, pasándole el path donde se encuentran las imágenes de los
 componentes que se usarán para generar el diagrama y el path de salida de los
 ficheros generados
 
+```
 from datasetCreate import DatasetCreate
 
 imagesInputPath = 'input'
-
 outputPath = 'output'
-
 dc = DatasetCreate(imagesInputPath, outputPath)
-
+```
 Posteriormente llamamos al método generateDataset, indicándole el número de
 imágenes, la carpeta donde se van a generar dichas imágenes y el nombre del
 fichero TFRecord de salida
-
+```
 dc.generateDataset(100, 'imagesTraining', 'train.record')
+```
 
-1.  **ELECCIÓN DE MODELO**
+**6.  ELECCIÓN DE MODELO**
 
 El problema planteado consiste en la identificación, clasificación y
 localización de múltiples objetos en una imagen. En la actualidad, es una de las
@@ -172,7 +173,7 @@ estos modelos es *Tensorflow object dectection*
 que construido sobre Tensorflow facilita la construcción, entrenamiento y
 despliegue de modelos de detección de objetos
 
-1.  **CONFIGURACION DEL ENTRENAMIENTO**
+**7.  CONFIGURACION DEL ENTRENAMIENTO**
 
 La configuración del modelo en Tensorflow object detection se realiza mediante
 una pipeline que se guarda en un fichero \*.config donde se define toda la
@@ -180,35 +181,28 @@ configuración necesaria para entrenar el modelo.
 
 El esquema de este fichero se muestra a continuación:
 
+```
 model {
-
 (... Add model config here...)
-
 }
 
 train_config : {
-
 (... Add train_config here...)
-
 }
 
 train_input_reader: {
-
 (... Add train_input configuration here...)
-
 }
 
 eval_config: {
-
 }
 
 eval_input_reader: {
-
 (... Add eval_input configuration here...)
-
 }
+```
 
-1.  **SELECCIÓN DE PARAMETROS EN EL MODELO**
+**8.  SELECCIÓN DE PARAMETROS EN EL MODELO**
 
 Hay un gran numero de parámetros para configurar los modelos. La elección de la
 mejor configuración es un proceso complejo que llevaría mucho tiempo, por lo que
@@ -225,12 +219,13 @@ objetos en 80 categorías.
 
 Los modelos que se han evaluado en este TFM son los siguientes:
 
-| R-FCN Resnet                 | <https://arxiv.org/abs/1605.06409> |
+| Model                 | url |
 |------------------------------|------------------------------------|
+| R-FCN Resnet                 | <https://arxiv.org/abs/1605.06409> |
 | SSD Mobilenet                | <https://arxiv.org/abs/1512.02325> |
 | Faster rcnn inception resnet | <https://arxiv.org/abs/1504.08083> |
 
-1.  **ENTRENAMIENTO DEL MODELO**
+**9.  ENTRENAMIENTO DEL MODELO**
 
 Inicialmente el modelo se comenzó a entrenar desde la propia imagen de Docker,
 pero debido a la baja velocidad que se conseguía debido a las características
@@ -256,21 +251,16 @@ se llevará a cabo el proceso de entrenamiento reduciendo los tiempos.
 La configuración empleada se puede encontrar en el fichero cloud.yml dentro de
 la carpeta Configs
 
+```
 trainingInput:
-
 runtimeVersion: "1.12"
-
 scaleTier: CUSTOM
-
 masterType: standard_gpu
-
 workerCount: 0
-
 workerType: standard_gpu
-
 parameterServerCount: 0
-
 parameterServerType: standard
+```
 
 Con esta configuración disponemos de un servidor con una NVIDIA Tesla K80.
 
@@ -278,7 +268,7 @@ Para realizar el entrenamiento en Google Cloud se dispone de otro notebook en la
 carpeta TFM/ GoogleCloudAITrainingConfig.ipynb con los pasos necesarios para
 configurar y lanzar el proceso.
 
-1.  **METRICAS**
+**10.  METRICAS**
 
 En la detección de objetos tenemos dos tareas que medir, por un lado, determinar
 si un objeto existe o no en la imagen, que seria un problema de clasificación, y
@@ -316,25 +306,25 @@ siguiente tabla se describe cada una de las medidas obtenidas:
 | DetectionBoxes_Precision                                                                 |                                                                                                            |
 |------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
 | DetectionBoxes_Precision/mAP                                                             | Mean average precisión de las clases promediada con la IoU que van desde 0.5 a 0.95 en incrementos de 0.05 |
-| [DetectionBoxes_Precision/mAP\@.50IOU](DetectionBoxes_Precision/mAP@.50IOU)              | Mean average precision con 50% IOU                                                                         |
-| [DetectionBoxes_Precision/mAP\@.75IOU](DetectionBoxes_Precision/mAP@.75IOU)              | Mean average precision con 75% IOU                                                                         |
+| DetectionBoxes_Precision/mAP\@.50IOU              | Mean average precision con 50% IOU                                                                         |
+| DetectionBoxes_Precision/mAP\@.75IOU              | Mean average precision con 75% IOU                                                                         |
 | DetectionBoxes_Precision/mAP (small)                                                     | Mean average precision para imágenes pequeñas (área \< 32\^2 pixeles).                                     |
 | DetectionBoxes_Precision/mAP (medium)                                                    | Mean average precision para imágenes medias (32\^2 pixeles \< área \< 96\^2 pixeles).                      |
 | DetectionBoxes_Precision/mAP (large)                                                     | Mean average precision para imágenes grandes (96\^2 pixeles \< área \< 10000\^2 pixeles).                  |
-| [DetectionBoxes_Recall](mailto:DetectionBoxes_Recall/AR@1)                               |                                                                                                            |
-| <DetectionBoxes_Recall/AR@1>                                                             | Recall medio con 1 detección                                                                               |
-| <DetectionBoxes_Recall/AR@10>                                                            | Recall medio con 10 detección                                                                              |
-| <DetectionBoxes_Recall/AR@100>                                                           | Recall medio con 100 detección                                                                             |
-| [DetectionBoxes_Recall/AR\@100 (small)](mailto:DetectionBoxes_Recall/AR@100%20(small))   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
-| [DetectionBoxes_Recall/AR\@100 (medium)](mailto:DetectionBoxes_Recall/AR@100%20(medium)) | Recall medio para imágenes medias con 100 detecciones                                                      |
-| [DetectionBoxes_Recall/AR\@100 (large)](mailto:DetectionBoxes_Recall/AR@100%20(large))   | Recall medio para imágenes grandes con 100 detecciones                                                     |
-| Loss                                                                                     |                                                                                                            |
+| **DetectionBoxes_Recall**                              |                                                                                                            |
+| DetectionBoxes_Recall/AR@1                                                           | Recall medio con 1 detección                                                                               |
+| DetectionBoxes_Recall/AR@10                                                        | Recall medio con 10 detección                                                                              |
+| DetectionBoxes_Recall/AR@100                                                           | Recall medio con 100 detección                                                                             |
+| DetectionBoxes_Recall/AR\@100 (small)   | Recall medio para imágenes pequeñas con 100 detecciones                                                    |
+| DetectionBoxes_Recall/AR\@100 (medium)] | Recall medio para imágenes medias con 100 detecciones                                                      |
+| DetectionBoxes_Recall/AR\@100   | Recall medio para imágenes grandes con 100 detecciones                                                     |
+| **Loss**                                                                                     |                                                                                                            |
 | BoxClassifierLoss/classification_loss                                                    | Pérdidas para la clasificación de objetos detectados con varias clases.                                    |
 | BoxClassifierLoss/localization_loss                                                      | Pérdidas de localización o las pérdidas del regresor del área delimitadora                                 |
 | RPNLoss/localization_loss                                                                | Pérdidas de localización o las pérdidas del regresor del área delimitadora para el RPN                     |
 | RPNLoss/objectness_loss                                                                  | Pérdidas del clasificador que decide si un área delimitadora es un objeto de interés o de fondo.           |
 
-1.  **EVALUACION RESULTADOS**
+**11.  EVALUACION RESULTADOS**
 
 Todos los entrenamientos se han realizado con un dataset de 1000 imágenes para
 el training y 100 para el test (un 10%).
@@ -350,7 +340,7 @@ y el tiempo total de entrenamiento que ha llevado.
 
 **Detection Boxes Precision**
 
-| **Model**      | **Step** | **mAP** | **mAP (large)** | **mAP (medium)** | **mAP (small)** | **mAP\@.50IOU** | **mAP\@.75IOU** | **Time** |
+| **Model**      | **Step** | **mAP** | **mAP (large)** | **mAP (medium)** | **mAP (small)** | **mAP@.50IOU** | **mAP@.75IOU** | **Time** |
 |----------------|----------|---------|-----------------|------------------|-----------------|-----------------|-----------------|----------|
 | rfcn_resnet101 | 100000   | 0.6409  | 0.6574          | 0.63             | \-1             | 0.8786          | 0.7633          | 1d 1h    |
 | ssd_mobilenet  | 134000   | 0.028   | 0.026           | 0.039            | \-1             | 0.067           | 0.018           | 20h      |
@@ -358,7 +348,7 @@ y el tiempo total de entrenamiento que ha llevado.
 
 **Detection Boxes Recall**
 
-| **Model**      | **Step** | **AR\@1** | **AR\@10** | **AR\@100** | **AR\@100 (large)** | **AR\@100 (medium)** | **AR\@100 (small)** | **Time** |
+| **Model**      | **Step** | **AR\@1** | **AR\@10** | **AR\@100** | **AR\@100 (large)** | **AR@100 (medium)** | **AR@100 (small)** | **Time** |
 |----------------|----------|-----------|------------|-------------|---------------------|----------------------|---------------------|----------|
 | rfcn_resnet101 | 100000   | 0.2985    | 0.7446     | 0.7595      | 0.7712              | 0.7461               | \-1                 | 1d 1h    |
 | ssd_mobilenet  | 134000   | 0.029     | 0.049      | 0.049       | 0.04897             | 0.05177              | \-1                 | 20h      |
@@ -408,11 +398,11 @@ De los resultados obtenidos podemos observar:
     ha sido faster rcnn. A continuación, se muestran algunos ejemplos de planos
     inferidos por el modelo
 
-![C:\\Users\\barde\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Content.MSO\\D4426EAF.tmp](media/8f86d382d3570b22b2ab5530e1e4150d.jpg)
+![](media/8f86d382d3570b22b2ab5530e1e4150d.jpg)
 
-![C:\\Users\\barde\\AppData\\Local\\Microsoft\\Windows\\INetCache\\Content.MSO\\EF035B95.tmp](media/e614ea4a92a217764fcc2ea5527bfdf5.jpg)
+![](media/e614ea4a92a217764fcc2ea5527bfdf5.jpg)
 
-1.  **VISUALIZACION**
+**12.  VISUALIZACION**
 
 Para el empleo y visualización del mejor modelo entrenado se ha desarrollado un
 API Rest disponible desde el puerto 5050. Esta API tiene un método que requiere
@@ -430,7 +420,7 @@ aplicación es accesible desde el puerto 4200. (<http://localhost:4200/>)
 En el repositorio, dentro de la carpeta TestImages, hay algunos diagramas de
 ejemplo para realizar pruebas desde el frontend.
 
-1.  **CONCLUSIONES**
+**13.  CONCLUSIONES**
 
 *El objetivo principal planteado se ha cumplido.*
 
@@ -442,4 +432,5 @@ es muy sencillo introducir nuevos componentes para reconocer e incluso entrenar
 el modelo para otro tipo de diagramas que usen representaciones diferentes de
 componentes.
 
-Miguel Ángel Comino Mateos (\@macominom), Madrid, junio 2019
+Miguel Ángel Comino Mateos [@macominom](https://twitter.com/macominom), Madrid, junio 2019
+
