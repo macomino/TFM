@@ -206,7 +206,7 @@ eval_input_reader: {
 
 Hay un gran numero de parámetros para configurar los modelos. La elección de la
 mejor configuración es un proceso complejo que llevaría mucho tiempo, por lo que
-se a partido de modelos pre-entrenados, que además de aportar una configuración
+se ha partido de modelos pre-entrenados, que además de aportar una configuración
 base sobre la que trabajar, reducen el tiempo de entrenamiento al partir nuestro
 modelo de uno ya entrenado.
 
